@@ -101,7 +101,7 @@ for line in "${apps[@]}"; do
 	fi
 done
 
-if [ ! -z "$permreset"]; then
+if [ ! -z "$permreset" ]; then
 	set_perm_recursive ${MODPATH}/system 0 0 0755 0644
 	travel $MODPATH system
 fi
