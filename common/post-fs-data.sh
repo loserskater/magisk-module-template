@@ -38,15 +38,13 @@ set_perm_recursive() {
 
 for line in "${apps[@]}"; do 
   IFS=' ' read name canonical path <<< $line
-  if [ ! -z "$LOGFILE" ]; then
-#    [ -d /system/${path}/${name} ] && log_print "/system/${path}/${name}: yes" || log_print "/system/${path}/${name}: no" 
-#    [ -d ${MODPATH}/system/${path}/${name} ] && log_print "${MODPATH}/system/${path}/${name}: yes" || log_print "${MODPATH}/system/${path}/${name}: no" 
-#    [ -d /data/app/${canonical}* ] && log_print "/data/app/${canonical}*: yes" || log_print "/data/app/${canonical}*: no" 
-  fi
+#  [ -d /system/${path}/${name} ] && log_print "/system/${path}/${name}: yes" || log_print "/system/${path}/${name}: no"
+#  [ -d ${MODPATH}/system/${path}/${name} ] && log_print "${MODPATH}/system/${path}/${name}: yes" || log_print "${MODPATH}/system/${path}/${name}: no"
+#  [ "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ] && log_print "/data/app/${canonical}*: yes" || log_print "/data/app/${canonical}*: no" 
   if [ ! -d /system/${path}/${name} -a ! -d ${MODPATH}/system/${path}/${name} -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then 
-    log_print "Found /data/app/${canonical}"
+#    log_print "Found /data/app/${canonical}"
     mkdir -p ${MODPATH}/system/${path}/${name} 2>/dev/null
-    for i in /data/app/${canonical}-*/*.apk; do
+    for i in /data/app/${canonical}-*/base.apk; do
       log_print "Copying $i to ${MODPATH}/system/${path}/${name}/${name}.apk"
       cp -f $i ${MODPATH}/system/${path}/${name}/${name}.apk
     done
