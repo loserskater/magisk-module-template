@@ -4,3 +4,6 @@
 1.1.0    
     - Support for Cerberus Anti Theft
     - No more need to reboot twice
+
+1.1.1
+    - Fix for Marshmallow -d 
