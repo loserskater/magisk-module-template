@@ -2,13 +2,20 @@
 
 MODPATH=/magisk/AppSystemizer
 apps=(
-		"NexusLauncherPrebuilt com.google.android.apps.nexuslauncher priv-app" 
-		"WallpaperPickerGooglePrebuilt com.google.android.apps.wallpaper app"
-		"Tycho com.google.android.apps.tycho app"
-		"ActionLauncher com.actionlauncher.playstore priv-app" 
-		"CerberusAntiTheft com.lsdroid.cerberus priv-app" 
+"NexusLauncherPrebuilt com.google.android.apps.nexuslauncher priv-app" 
+"WallpaperPickerGooglePrebuilt com.google.android.apps.wallpaper app"
+"Tycho com.google.android.apps.tycho app"
+"ActionLauncher com.actionlauncher.playstore priv-app" 
+"CerberusAntiTheft com.lsdroid.cerberus priv-app" 
 )
 permreset=
+
+LOGFILE=/cache/magisk.log
+log_print() {
+  echo $1
+  echo "AppSys: $1" >> $LOGFILE
+  log -p i -t AppSys "$1"
+}
 
 set_perm() {
   chown $2:$3 $1 || exit 1
@@ -29,79 +36,23 @@ set_perm_recursive() {
   done
 }
 
-travel() {
-  cd $1/$2
-  if [ -f ".replace" ]; then
-    rm -rf $TMPDIR/$2
-    mktouch $TMPDIR/$2 $1
-  else
-    for ITEM in * ; do
-      if [ ! -e "/$2/$ITEM" ]; then
-        # New item found
-        if [ $2 = "system" ]; then
-          # We cannot add new items to /system root, delete it
-          rm -rf $ITEM
-        else
-          if [ -d "$TMPDIR/dummy/$2" ]; then
-            # We are in a higher level, delete the lower levels
-            rm -rf $TMPDIR/dummy/$2
-          fi
-          # Mount the dummy parent
-          mktouch $TMPDIR/dummy/$2
-
-          mkdir -p $DUMMDIR/$2 2>/dev/null
-          if [ -d "$ITEM" ]; then
-            # Create new dummy directory
-            mkdir -p $DUMMDIR/$2/$ITEM
-          elif [ -L "$ITEM" ]; then
-            # Symlinks are small, copy them
-            cp -afc $ITEM $DUMMDIR/$2/$ITEM
-          else
-            # Create new dummy file
-            mktouch $DUMMDIR/$2/$ITEM
-          fi
-
-          # Clone the original /system structure (depth 1)
-          if [ -e "/$2" ]; then
-            for DUMMY in /$2/* ; do
-              if [ -d "$DUMMY" ]; then
-                # Create dummy directory
-                mkdir -p $DUMMDIR$DUMMY
-              elif [ -L "$DUMMY" ]; then
-                # Symlinks are small, copy them
-                cp -afc $DUMMY $DUMMDIR$DUMMY
-              else
-                # Create dummy file
-                mktouch $DUMMDIR$DUMMY
-              fi
-            done
-          fi
-        fi
-      fi
-
-      if [ -d "$ITEM" ]; then
-        # It's an directory, travel deeper
-        (travel $1 $2/$ITEM)
-      elif [ ! -L "$ITEM" ]; then
-        # Mount this file
-        mktouch $TMPDIR/$2/$ITEM $1
-      fi
-    done
-  fi
-}
-
 for line in "${apps[@]}"; do 
-	IFS=' ' read name canonical path <<< $line
-	if [ ! -d /system/${path}/${name} -a ! -d ${MODPATH}/system/${path}/${name} -a -d /data/app/${canonical}* ]; then 
-		mkdir -p ${MODPATH}/system/${path}/${name}
-		for i in /data/app/${canonical}*/base.apk; do
-			cp $i ${MODPATH}/system/${path}/${name}/${name}.apk
-		done
-		permreset=1
-	fi
+  IFS=' ' read name canonical path <<< $line
+  if [ ! -z "$LOGFILE" ]; then
+#    [ -d /system/${path}/${name} ] && log_print "/system/${path}/${name}: yes" || log_print "/system/${path}/${name}: no" 
+#    [ -d ${MODPATH}/system/${path}/${name} ] && log_print "${MODPATH}/system/${path}/${name}: yes" || log_print "${MODPATH}/system/${path}/${name}: no" 
+#    [ -d /data/app/${canonical}* ] && log_print "/data/app/${canonical}*: yes" || log_print "/data/app/${canonical}*: no" 
+  fi
+  if [ ! -d /system/${path}/${name} -a ! -d ${MODPATH}/system/${path}/${name} -a -d "/data/app/${canonical}"* ]; then 
+    mkdir -p ${MODPATH}/system/${path}/${name} 2>/dev/null
+    for i in /data/app/${canonical}*/base.apk; do
+#      [ ! -z "$LOGFILE" ] && log_print "Copying $i to ${MODPATH}/system/${path}/${name}/${name}.apk"
+      cp -f $i ${MODPATH}/system/${path}/${name}/${name}.apk
+    done
+    permreset=1
+  fi
 done
 
 if [ ! -z "$permreset" ]; then
-	set_perm_recursive ${MODPATH}/system 0 0 0755 0644
-	travel $MODPATH system
+  set_perm_recursive ${MODPATH}/system 0 0 0755 0644
 fi
