@@ -43,10 +43,11 @@ for line in "${apps[@]}"; do
 #    [ -d ${MODPATH}/system/${path}/${name} ] && log_print "${MODPATH}/system/${path}/${name}: yes" || log_print "${MODPATH}/system/${path}/${name}: no" 
 #    [ -d /data/app/${canonical}* ] && log_print "/data/app/${canonical}*: yes" || log_print "/data/app/${canonical}*: no" 
   fi
-  if [ ! -d /system/${path}/${name} -a ! -d ${MODPATH}/system/${path}/${name} -a -d "/data/app/${canonical}"* ]; then 
+  if [ ! -d /system/${path}/${name} -a ! -d ${MODPATH}/system/${path}/${name} -a -d "/data/app/${canonical}"?? ]; then 
+    log_print "Found /data/app/${canonical}"
     mkdir -p ${MODPATH}/system/${path}/${name} 2>/dev/null
-    for i in /data/app/${canonical}*/base.apk; do
-#      [ ! -z "$LOGFILE" ] && log_print "Copying $i to ${MODPATH}/system/${path}/${name}/${name}.apk"
+    for i in /data/app/${canonical}*/*.apk; do
+      log_print "Copying $i to ${MODPATH}/system/${path}/${name}/${name}.apk"
       cp -f $i ${MODPATH}/system/${path}/${name}/${name}.apk
     done
     permreset=1
