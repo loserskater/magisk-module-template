@@ -6,3 +6,6 @@
 
 1.1.1
     - Fix for Marshmallow -d 
+
+1.1.2
+    - Minor bash fix 
