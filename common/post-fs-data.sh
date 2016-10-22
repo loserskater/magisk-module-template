@@ -7,6 +7,10 @@ apps=(
 "Tycho com.google.android.apps.tycho app"
 "ActionLauncher com.actionlauncher.playstore priv-app" 
 "CerberusAntiTheft com.lsdroid.cerberus priv-app" 
+"WakelockDetector com.uzumapps.wakelockdetector priv-app" 
+"WakelockDetectorNoroot com.uzumapps.wakelockdetector.noroot priv-app" 
+"WakelockDetectorFull com.uzumapps.wakelockdetector.full priv-app" 
+"BetterBatteryStats com.asksven.betterbatterystats priv-app" 
 )
 permreset=
 
