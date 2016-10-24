@@ -45,7 +45,7 @@ for line in "${apps[@]}"; do
 #  [ -d /system/${path}/${name} ] && log_print "/system/${path}/${name}: yes" || log_print "/system/${path}/${name}: no"
 #  [ -d ${MODPATH}/system/${path}/${name} ] && log_print "${MODPATH}/system/${path}/${name}: yes" || log_print "${MODPATH}/system/${path}/${name}: no"
 #  [ "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ] && log_print "/data/app/${canonical}*: yes" || log_print "/data/app/${canonical}*: no" 
-  [ "$name" = "BetterBatteryStats" -a "$(getprop ro.build.id)" = "NPF10C" ] && continue
+#  [ "$name" = "BetterBatteryStats" -a "$(getprop ro.build.id)" = "NPF10C" ] && continue
   if [ ! -d /system/${path}/${name} -a ! -d ${MODPATH}/system/${path}/${name} -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then 
 #    log_print "Found /data/app/${canonical}"
     mkdir -p ${MODPATH}/system/${path}/${name} 2>/dev/null

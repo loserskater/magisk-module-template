@@ -20,4 +20,4 @@
     - Removed support for BetterBatteryStats
 
 1.1.5
-    - Added back support for BetterBatteryStats  (except on NPF10C)
+    - Added back support for BetterBatteryStats
