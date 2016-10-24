@@ -24,3 +24,6 @@
 
 1.1.6
     - Added support for Google Contacts and Google Dialer
+
+1.1.7
+    - Preparation for external apps list/companion app

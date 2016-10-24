@@ -1,20 +1,16 @@
 #!/system/bin/sh
 
 MODPATH=/magisk/AppSystemizer
+STOREDLIST=${MODPATH}/extras/appslist.conf
+#STOREDLIST=/data/data/net.melmac.appsystemizer/files/appslist.conf
+
 apps=(
-"NexusLauncherPrebuilt,com.google.android.apps.nexuslauncher,priv-app"
-"WallpaperPickerGooglePrebuilt,com.google.android.apps.wallpaper,app"
-"Tycho,com.google.android.apps.tycho,app"
-"ActionLauncher,com.actionlauncher.playstore,priv-app"
-"CerberusAntiTheft,com.lsdroid.cerberus,priv-app"
-"WakelockDetector,com.uzumapps.wakelockdetector,priv-app"
-"WakelockDetectorNoroot,com.uzumapps.wakelockdetector.noroot,priv-app"
-"WakelockDetectorFull,com.uzumapps.wakelockdetector.full,priv-app"
-"BetterBatteryStats,com.asksven.betterbatterystats,priv-app"
-"GoogleContacts,com.google.android.contacts,priv-app"
-"GoogleDialer,com.google.android.dialer,priv-app"
+"com.google.android.apps.nexuslauncher,NexusLauncherPrebuilt,priv-app,1"
+"com.google.android.apps.wallpaper,WallpaperPickerGooglePrebuilt,app,1"
+"com.google.android.apps.tycho,Tycho,app,1"
 )
 permreset=
+debug=1
 
 LOGFILE=/cache/magisk.log
 log_print() {
@@ -42,21 +38,22 @@ set_perm_recursive() {
   done
 }
 
+[ -s $STOREDLIST ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from $STOREDLIST."
+
 for line in "${apps[@]}"; do 
-  IFS=',' read name canonical path <<< $line
-#  [ -d /system/${path}/${name} ] && log_print "/system/${path}/${name}: yes" || log_print "/system/${path}/${name}: no"
-#  [ -d ${MODPATH}/system/${path}/${name} ] && log_print "${MODPATH}/system/${path}/${name}: yes" || log_print "${MODPATH}/system/${path}/${name}: no"
-#  [ "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ] && log_print "/data/app/${canonical}*: yes" || log_print "/data/app/${canonical}*: no" 
-#  [ "$name" = "BetterBatteryStats" -a "$(getprop ro.build.id)" = "NPF10C" ] && continue
-  if [ ! -d /system/${path}/${name} -a ! -d ${MODPATH}/system/${path}/${name} -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then 
-#    log_print "Found /data/app/${canonical}"
-    mkdir -p ${MODPATH}/system/${path}/${name} 2>/dev/null
-    for i in /data/app/${canonical}-*/base.apk; do
-      [ -z "$name" ] && newname="${canonical}" || newname="${name}/${name}"
-      log_print "Copying $i to ${MODPATH}/system/${path}/${newname}.apk"
-      cp -f $i ${MODPATH}/system/${path}/${newname}.apk
-    done
-    permreset=1
+  IFS=',' read canonical name path status <<< $line
+  [ -z "$path" ] && path='priv-app'
+  if [ status -eq 1 -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
+  	if [[ ( ! -z "$name" && ! -d /system/${path}/${name} ) || ( -z "$name" && ! -f /system/${path}/${canonical}.apk ) && \
+  	( ! -z "$name" && ! -d ${MODPATH}/system/${path}/${name} ) || ( -z "$name" && ! -f ${MODPATH}/system/${path}/${canonical}.apk ) ]]; then
+	    mkdir -p ${MODPATH}/system/${path}/${name} 2>/dev/null
+    	for i in /data/app/${canonical}-*/base.apk; do
+	      [ -z "$name" ] && newname="${canonical}" || newname="${name}/${name}"
+    	  log_print "Copying $i to ${MODPATH}/system/${path}/${newname}.apk"
+	      cp -f $i ${MODPATH}/system/${path}/${newname}.apk
+    	done
+	    permreset=1
+  	fi
   fi
 done
 
