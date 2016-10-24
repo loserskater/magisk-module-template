@@ -21,3 +21,6 @@
 
 1.1.5
     - Added back support for BetterBatteryStats
+
+1.1.6
+    - Added support for Google Contacts and Google Dialer

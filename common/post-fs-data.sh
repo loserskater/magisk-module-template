@@ -11,6 +11,8 @@ apps=(
 "WakelockDetectorNoroot,com.uzumapps.wakelockdetector.noroot,priv-app"
 "WakelockDetectorFull,com.uzumapps.wakelockdetector.full,priv-app"
 "BetterBatteryStats,com.asksven.betterbatterystats,priv-app"
+"GoogleContacts,com.google.android.contacts,priv-app"
+"GoogleDialer,com.google.android.dialer,priv-app"
 )
 permreset=
 
