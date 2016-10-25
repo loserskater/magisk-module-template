@@ -2,7 +2,7 @@
 
 MODPATH=/magisk/AppSystemizer
 STOREDLIST=${MODPATH}/extras/appslist.conf
-#STOREDLIST=/data/data/net.melmac.appsystemizer/files/appslist.conf
+#STOREDLIST=/data/data/net.loserskater.appsystemizer/appslist.conf
 
 apps=(
 "com.google.android.apps.nexuslauncher,NexusLauncherPrebuilt,priv-app,1"
@@ -43,7 +43,7 @@ set_perm_recursive() {
 for line in "${apps[@]}"; do 
   IFS=',' read canonical name path status <<< $line
   [ -z "$path" ] && path='priv-app'
-  if [ status -eq 1 -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
+  if [ "$status" = "1" -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
   	if [[ ( ! -z "$name" && ! -d /system/${path}/${name} ) || ( -z "$name" && ! -f /system/${path}/${canonical}.apk ) && \
   	( ! -z "$name" && ! -d ${MODPATH}/system/${path}/${name} ) || ( -z "$name" && ! -f ${MODPATH}/system/${path}/${canonical}.apk ) ]]; then
 	    mkdir -p ${MODPATH}/system/${path}/${name} 2>/dev/null
@@ -54,6 +54,10 @@ for line in "${apps[@]}"; do
     	done
 	    permreset=1
   	fi
+  fi
+  if [ ! "$status" = "1" -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
+  	[ ! -z "$name" -a -d ${MODPATH}/system/${path}/${name} ] && rm -rf ${MODPATH}/system/${path}/${name} && log_print "Unsystemizing $name."
+  	[ -z "$name" -a -f ${MODPATH}/system/${path}/${canonical}.apk ] && rm -rf ${MODPATH}/system/${path}/${name} && log_print "Unsystemizing $canonical.apk."
   fi
 done
 
