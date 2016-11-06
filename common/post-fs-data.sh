@@ -9,8 +9,6 @@ apps=(
 "com.google.android.apps.wallpaper,WallpaperPickerGooglePrebuilt,app,1"
 "com.google.android.apps.tycho,Tycho,app,1"
 )
-permreset=
-debug=1
 
 LOGFILE=/cache/magisk.log
 log_print() {
@@ -19,48 +17,42 @@ log_print() {
   log -p i -t AppSys "$1"
 }
 
-set_perm() {
-  chown $2:$3 $1 || exit 1
-  chmod $4 $1 || exit 1
-  if [ "$5" ]; then
-    chcon $5 $1 2>/dev/null
-  else
-    chcon 'u:object_r:system_file:s0' $1 2>/dev/null
-  fi
-}
-
-set_perm_recursive() {
-  find $1 -type d 2>/dev/null | while read dir; do
-    set_perm $dir $2 $3 $4 $6
-  done
-  find $1 -type f 2>/dev/null | while read file; do
-    set_perm $file $2 $3 $5 $6
-  done
+bind_mount() {
+    mount -o bind $1 $2
+    if [ "$?" -eq "0" ]; then log_print "Mount $1";
+    else log_print "Mount Fail $1 $2"; fi
 }
 
 [ -s $STOREDLIST ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from $STOREDLIST."
 
 for line in "${apps[@]}"; do 
   IFS=',' read canonical name path status <<< $line
+  [ -z "$canonical" ] && continue
   [ -z "$path" ] && path='priv-app'
   if [ "$status" = "1" -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
-  	if [[ ( ! -z "$name" && ! -d /system/${path}/${name} ) || ( -z "$name" && ! -f /system/${path}/${canonical}.apk ) && \
-  	( ! -z "$name" && ! -d ${MODPATH}/system/${path}/${name} ) || ( -z "$name" && ! -f ${MODPATH}/system/${path}/${canonical}.apk ) ]]; then
-	    mkdir -p ${MODPATH}/system/${path}/${name} 2>/dev/null
+  	if [[ ( ( -n "$name" && ! -d /system/${path}/${name} ) || ( -z "$name" && ! -f /system/${path}/${canonical}.apk ) ) && \
+  	( ( -n "$name" && ! -d ${MODPATH}/system/${path}/${name} ) || ( -z "$name" && ! -f ${MODPATH}/system/${path}/${canonical}.apk ) ) ]]; then
     	for i in /data/app/${canonical}-*/base.apk; do
-	      [ -z "$name" ] && newname="${canonical}" || newname="${name}/${name}"
-    	  log_print "Copying $i to ${MODPATH}/system/${path}/${newname}.apk"
-	      cp -f $i ${MODPATH}/system/${path}/${newname}.apk
+	      if [ "$i" != "/data/app/${canonical}-*/base.apk" ]; then
+	      	[ -n "$name" ] && newname="${name}/${name}" || newname="${canonical}"
+	      	mkdir -p ${MODPATH}/system/${path}/${name} 2>/dev/null
+	      	cp -f $i ${MODPATH}/system/${path}/${newname}.apk && log_print "Copy ./${path}/${newname}.apk" || log_print "Copy Fail: $i ${MODPATH}/system/${path}/${newname}.apk"
+	      	chown 0:0 ${MODPATH}/system/${path}/${name}
+	      	chmod 0755 ${MODPATH}/system/${path}/${name}
+	      	chown 0:0 ${MODPATH}/system/${path}/${newname}.apk
+	      	chmod 0644 ${MODPATH}/system/${path}/${newname}.apk
+	      fi
     	done
-	    permreset=1
   	fi
   fi
-  if [ ! "$status" = "1" -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
-  	[ ! -z "$name" -a -d ${MODPATH}/system/${path}/${name} ] && rm -rf ${MODPATH}/system/${path}/${name} && log_print "Unsystemizing $name."
+  if [ "$status" != "1" -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
+  	[ -n "$name" -a -d ${MODPATH}/system/${path}/${name} ] && rm -rf ${MODPATH}/system/${path}/${name} && log_print "Unsystemizing $name."
   	[ -z "$name" -a -f ${MODPATH}/system/${path}/${canonical}.apk ] && rm -rf ${MODPATH}/system/${path}/${name} && log_print "Unsystemizing $canonical.apk."
   fi
 done
 
-if [ ! -z "$permreset" ]; then
-  set_perm_recursive ${MODPATH}/system 0 0 0755 0644
-fi
+#find $MODPATH/system -type f 2>/dev/null | while read f; do
+#	TARGET=${f#$MODPATH}
+#	bind_mount $f /magisk/.core/dummy${TARGET}
+#	bind_mount $f $TARGET
+#done
