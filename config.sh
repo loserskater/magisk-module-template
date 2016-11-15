@@ -1,7 +1,5 @@
-CACHEMOD=false
 MODID=AppSystemizer
 AUTOMOUNT=true
-POSTFS=false
 POSTFSDATA=true
 LATESTARTSERVICE=false
 

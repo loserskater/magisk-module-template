@@ -28,5 +28,5 @@
 1.1.7
     - Preparation for external apps list/companion app
 
-1.2.0
-    - No need for second reboot, systemized apps are mounted automatically
+1.1.9
+    - Migration to magisk-v9 module template

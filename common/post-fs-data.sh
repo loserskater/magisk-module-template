@@ -1,7 +1,7 @@
 #!/system/bin/sh
+MODDIR=${0%/*}
 
-MODPATH=/magisk/AppSystemizer
-STOREDLIST=${MODPATH}/extras/appslist.conf
+STOREDLIST=${MODDIR}/extras/appslist.conf
 #STOREDLIST=/data/data/net.loserskater.appsystemizer/appslist.conf
 
 apps=(
@@ -31,28 +31,28 @@ for line in "${apps[@]}"; do
   [ -z "$path" ] && path='priv-app'
   if [ "$status" = "1" -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
   	if [[ ( ( -n "$name" && ! -d /system/${path}/${name} ) || ( -z "$name" && ! -f /system/${path}/${canonical}.apk ) ) && \
-  	( ( -n "$name" && ! -d ${MODPATH}/system/${path}/${name} ) || ( -z "$name" && ! -f ${MODPATH}/system/${path}/${canonical}.apk ) ) ]]; then
+  	( ( -n "$name" && ! -d ${MODDIR}/system/${path}/${name} ) || ( -z "$name" && ! -f ${MODDIR}/system/${path}/${canonical}.apk ) ) ]]; then
     	for i in /data/app/${canonical}-*/base.apk; do
 	      if [ "$i" != "/data/app/${canonical}-*/base.apk" ]; then
 	      	[ -n "$name" ] && newname="${name}/${name}" || newname="${canonical}"
-	      	mkdir -p ${MODPATH}/system/${path}/${name} 2>/dev/null
-	      	cp -f $i ${MODPATH}/system/${path}/${newname}.apk && log_print "Copy ./${path}/${newname}.apk" || log_print "Copy Fail: $i ${MODPATH}/system/${path}/${newname}.apk"
-	      	chown 0:0 ${MODPATH}/system/${path}/${name}
-	      	chmod 0755 ${MODPATH}/system/${path}/${name}
-	      	chown 0:0 ${MODPATH}/system/${path}/${newname}.apk
-	      	chmod 0644 ${MODPATH}/system/${path}/${newname}.apk
+	      	mkdir -p ${MODDIR}/system/${path}/${name} 2>/dev/null
+	      	cp -f $i ${MODDIR}/system/${path}/${newname}.apk && log_print "Copy ./${path}/${newname}.apk" || log_print "Copy Fail: $i ${MODDIR}/system/${path}/${newname}.apk"
+	      	chown 0:0 ${MODDIR}/system/${path}/${name}
+	      	chmod 0755 ${MODDIR}/system/${path}/${name}
+	      	chown 0:0 ${MODDIR}/system/${path}/${newname}.apk
+	      	chmod 0644 ${MODDIR}/system/${path}/${newname}.apk
 	      fi
     	done
   	fi
   fi
   if [ "$status" != "1" -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
-  	[ -n "$name" -a -d ${MODPATH}/system/${path}/${name} ] && rm -rf ${MODPATH}/system/${path}/${name} && log_print "Unsystemizing $name."
-  	[ -z "$name" -a -f ${MODPATH}/system/${path}/${canonical}.apk ] && rm -rf ${MODPATH}/system/${path}/${name} && log_print "Unsystemizing $canonical.apk."
+  	[ -n "$name" -a -d ${MODDIR}/system/${path}/${name} ] && rm -rf ${MODDIR}/system/${path}/${name} && log_print "Unsystemizing $name."
+  	[ -z "$name" -a -f ${MODDIR}/system/${path}/${canonical}.apk ] && rm -rf ${MODDIR}/system/${path}/${name} && log_print "Unsystemizing $canonical.apk."
   fi
 done
 
-#find $MODPATH/system -type f 2>/dev/null | while read f; do
-#	TARGET=${f#$MODPATH}
+#find $MODDIR/system -type f 2>/dev/null | while read f; do
+#	TARGET=${f#$MODDIR}
 #	bind_mount $f /magisk/.core/dummy${TARGET}
 #	bind_mount $f $TARGET
 #done
