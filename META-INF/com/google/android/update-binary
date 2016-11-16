@@ -172,6 +172,7 @@ MODPATH=$MOUNTPATH/$MODID
 mkdir -p $INSTALLER
 cd $INSTALLER
 unzip -o "$ZIP" common/* module.prop
+unzip -o "$ZIP" extras/*
 
 ##########################################################################################
 # Main

@@ -17,11 +17,11 @@ log_print() {
   log -p i -t AppSys "$1"
 }
 
-bind_mount() {
-    mount -o bind $1 $2
-    if [ "$?" -eq "0" ]; then log_print "Mount $1";
-    else log_print "Mount Fail $1 $2"; fi
-}
+# bind_mount() {
+#     mount -o bind $1 $2
+#     if [ "$?" -eq "0" ]; then log_print "Mount $1";
+#     else log_print "Mount Fail $1 $2"; fi
+# }
 
 [ -s $STOREDLIST ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from $STOREDLIST."
 
