@@ -289,7 +289,7 @@ fi
 # extras folder in scripts
 if [ -d $INSTALLER/extras ]; then
   mkdir -p $MODPATH/extras
-  cp -af $INSTALLER/extras/* $MODPATH/extras/*
+  cp -af $INSTALLER/extras/* $MODPATH/extras/
 fi
 
 # service mode scripts
