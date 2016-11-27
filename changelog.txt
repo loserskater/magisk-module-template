@@ -39,3 +39,6 @@
 	
 1.2.2
 	- Support for com.uzumapps.wakelockdetector.noroot removed
+
+1.2.3
+	- Support for GSam Battery Monitor (thanks jsaxon2!)
