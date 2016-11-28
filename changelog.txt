@@ -42,3 +42,6 @@
 
 1.2.3
 	- Support for GSam Battery Monitor (thanks jsaxon2!)
+
+1.2.4
+	- Support for Greenify and BetterBatteryStats XDA Edition (thanks yochananmarqos!)
