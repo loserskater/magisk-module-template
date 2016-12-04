@@ -1,50 +1,51 @@
-1.0.0
-    - Initial release
+1.2.5
+	- Support for Chrome Customizations (thanks Link_of_Hyrule!)
 
-1.1.0    
-    - Support for Cerberus Anti Theft
-    - Logic rewrite allowing to add new apps quicker
+1.2.4
+	- Support for Greenify and BetterBatteryStats XDA Edition (thanks yochananmarqos!)
 
-1.1.1
-    - Bugfixes 
+1.2.3
+	- Support for GSam Battery Monitor (thanks jsaxon2!)
 
-1.1.2
-    - Bash use bugfix
-    - Support for SuperSu
+1.2.2
+	- Support for com.uzumapps.wakelockdetector.noroot removed
+
+1.2.1
+	- Support for Proximity Services
+	
+1.2.0
+	- Fixed bug with missing appslist.conf file after migration to magisk-v9 module template
+
+1.1.9
+    - Migration to magisk-v9 module template
+
+1.1.7
+    - Preparation for external apps list/companion app
+
+1.1.6
+    - Added support for Google Contacts and Google Dialer
+
+1.1.5
+    - Added back support for BetterBatteryStats
+
+1.1.4
+    - Removed support for BetterBatteryStats
 
 1.1.3
     - Support for Wakelock Detector
     - Support for BetterBatteryStats
 
-1.1.4
-    - Removed support for BetterBatteryStats
+1.1.2
+    - Bash use bugfix
+    - Support for SuperSu
 
-1.1.5
-    - Added back support for BetterBatteryStats
+1.1.1
+    - Bugfixes 
 
-1.1.6
-    - Added support for Google Contacts and Google Dialer
+1.1.0    
+    - Support for Cerberus Anti Theft
+    - Logic rewrite allowing to add new apps quicker
 
-1.1.7
-    - Preparation for external apps list/companion app
+1.0.0
+    - Initial release
 
-1.1.9
-    - Migration to magisk-v9 module template
-
-1.2.0
-	- Fixed bug with missing appslist.conf file after migration to magisk-v9 module template
-
-1.2.1
-	- Support for Proximity Services
-	
-1.2.2
-	- Support for com.uzumapps.wakelockdetector.noroot removed
-
-1.2.3
-	- Support for GSam Battery Monitor (thanks jsaxon2!)
-
-1.2.4
-	- Support for Greenify and BetterBatteryStats XDA Edition (thanks yochananmarqos!)
-
-1.2.5
-	- Support for Chrome Customizations (thanks Link_of_Hyrule!)
