@@ -13,3 +13,4 @@ This module converts a pre-defined list of installed apps to system apps.
 * ProximityService
 * GSam Battery Monitor -- thanks @jsaxon2!
 * Greenify -- thanks @yochananmarqos!
+* Chrome Customizations -- thanks @Link_of_Hyrule!

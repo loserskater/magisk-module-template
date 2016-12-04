@@ -45,3 +45,6 @@
 
 1.2.4
 	- Support for Greenify and BetterBatteryStats XDA Edition (thanks yochananmarqos!)
+
+1.2.5
+	- Support for Chrome Customizations (thanks Link_of_Hyrule!)
