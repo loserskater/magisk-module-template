@@ -23,6 +23,11 @@ log_print() {
 #     else log_print "Mount Fail $1 $2"; fi
 # }
 
+if [ "$1" = "postinstallcall" -a -n "$2" -a -d /magisk/AppSystemizer/system ]; then
+	cp -rf /magisk/AppSystemizer/system $2/ && log_print "Current install found and migrated." || log_print "Migration Fail: /magisk/AppSystemizer $2."
+	exit 0
+fi
+	
 [ -s $STOREDLIST ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from $STOREDLIST."
 
 for line in "${apps[@]}"; do 
@@ -36,7 +41,7 @@ for line in "${apps[@]}"; do
 	      if [ "$i" != "/data/app/${canonical}-*/base.apk" ]; then
 	      	[ -n "$name" ] && newname="${name}/${name}" || newname="${canonical}"
 	      	mkdir -p ${MODDIR}/system/${path}/${name} 2>/dev/null
-	      	cp -f $i ${MODDIR}/system/${path}/${newname}.apk && log_print "Copy ./${path}/${newname}.apk" || log_print "Copy Fail: $i ${MODDIR}/system/${path}/${newname}.apk"
+	      	cp -f $i ${MODDIR}/system/${path}/${newname}.apk && log_print "Copy ${MODDIR}/${path}/${newname}.apk" || log_print "Copy Fail: $i ${MODDIR}/system/${path}/${newname}.apk"
 	      	chown 0:0 ${MODDIR}/system/${path}/${name}
 	      	chmod 0755 ${MODDIR}/system/${path}/${name}
 	      	chown 0:0 ${MODDIR}/system/${path}/${newname}.apk

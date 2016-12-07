@@ -172,7 +172,6 @@ MODPATH=$MOUNTPATH/$MODID
 mkdir -p $INSTALLER
 cd $INSTALLER
 unzip -o "$ZIP" common/* module.prop
-unzip -o "$ZIP" extras/*
 
 ##########################################################################################
 # Main
@@ -286,16 +285,14 @@ if ($POSTFSDATA); then
   cp -af $INSTALLER/common/post-fs-data.sh $MODPATH/post-fs-data.sh
 fi
 
-# extras folder in scripts
-if [ -d $INSTALLER/extras ]; then
-  mkdir -p $MODPATH/extras
-  cp -af $INSTALLER/extras/* $MODPATH/extras/
-fi
+unzip -o "$ZIP" extras/* -d $MODPATH
 
 # service mode scripts
 if ($LATESTARTSERVICE); then
   cp -af $INSTALLER/common/service.sh $MODPATH/service.sh
 fi
+
+sh $MODPATH/post-fs-data.sh postinstallcall $MODPATH
 
 ui_print "- Setting permissions"
 set_permissions
