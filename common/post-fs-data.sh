@@ -17,7 +17,7 @@ log_print() {
   log -p i -t AppSys "$1"
 }
 
-[ -s $STOREDLIST ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from $STOREDLIST."
+[ -s $STOREDLIST ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from $STOREDLIST."  || log_print "Failed to load apps list from $STOREDLIST."
 
 for line in "${apps[@]}"; do 
   IFS=',' read canonical name path status <<< $line
