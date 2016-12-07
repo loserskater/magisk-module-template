@@ -23,11 +23,6 @@ log_print() {
 #     else log_print "Mount Fail $1 $2"; fi
 # }
 
-if [ "$1" = "postinstallcall" -a -n "$2" -a -d /magisk/AppSystemizer/system ]; then
-	cp -rf /magisk/AppSystemizer/system $2/ && log_print "Current install found and migrated." || log_print "Migration Fail: /magisk/AppSystemizer $2."
-	exit 0
-fi
-	
 [ -s $STOREDLIST ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from $STOREDLIST."
 
 for line in "${apps[@]}"; do 

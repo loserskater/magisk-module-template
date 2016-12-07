@@ -292,7 +292,9 @@ if ($LATESTARTSERVICE); then
   cp -af $INSTALLER/common/service.sh $MODPATH/service.sh
 fi
 
-sh $MODPATH/post-fs-data.sh postinstallcall $MODPATH
+if [ -d /magisk/AppSystemizer/system ]; then
+	cp -rf /magisk/AppSystemizer/system $MODPATH/ && ui_print "- Migrating existing install"
+fi
 
 ui_print "- Setting permissions"
 set_permissions
