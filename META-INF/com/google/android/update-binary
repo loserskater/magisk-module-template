@@ -285,12 +285,12 @@ if ($POSTFSDATA); then
   cp -af $INSTALLER/common/post-fs-data.sh $MODPATH/post-fs-data.sh
 fi
 
-unzip -o "$ZIP" extras/* -d $MODPATH
-
 # service mode scripts
 if ($LATESTARTSERVICE); then
   cp -af $INSTALLER/common/service.sh $MODPATH/service.sh
 fi
+
+unzip -o "$ZIP" extras/* -d $MODPATH
 
 if [ -d /magisk/AppSystemizer/system ]; then
 	ui_print "- Migrating existing install"
