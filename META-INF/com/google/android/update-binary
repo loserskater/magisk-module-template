@@ -293,7 +293,11 @@ if ($LATESTARTSERVICE); then
 fi
 
 if [ -d /magisk/AppSystemizer/system ]; then
-	cp -rf /magisk/AppSystemizer/system $MODPATH/ && ui_print "- Migrating existing install"
+	ui_print "- Migrating existing install"
+	cp -rf /magisk/AppSystemizer/system $MODPATH/
+else
+	ui_print "- Systemizing apps"
+	sh $MODPATH/post-fs-data.sh
 fi
 
 ui_print "- Setting permissions"

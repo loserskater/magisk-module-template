@@ -17,12 +17,6 @@ log_print() {
   log -p i -t AppSys "$1"
 }
 
-# bind_mount() {
-#     mount -o bind $1 $2
-#     if [ "$?" -eq "0" ]; then log_print "Mount $1";
-#     else log_print "Mount Fail $1 $2"; fi
-# }
-
 [ -s $STOREDLIST ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from $STOREDLIST."
 
 for line in "${apps[@]}"; do 
@@ -50,9 +44,3 @@ for line in "${apps[@]}"; do
   	[ -z "$name" -a -f ${MODDIR}/system/${path}/${canonical}.apk ] && rm -rf ${MODDIR}/system/${path}/${name} && log_print "Unsystemizing $canonical.apk."
   fi
 done
-
-#find $MODDIR/system -type f 2>/dev/null | while read f; do
-#	TARGET=${f#$MODDIR}
-#	bind_mount $f /magisk/.core/dummy${TARGET}
-#	bind_mount $f $TARGET
-#done
