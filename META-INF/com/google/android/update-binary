@@ -294,6 +294,7 @@ unzip -o "$ZIP" extras/* -d $MODPATH
 
 if [ -d /magisk/AppSystemizer/system ]; then
 	ui_print "- Migrating existing install"
+# be careful not to overwrite the companion app
 	cp -rf /magisk/AppSystemizer/system $MODPATH/
 else
 	ui_print "- Systemizing apps"
