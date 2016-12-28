@@ -13,20 +13,20 @@ apps=(
 LOGFILE=/cache/magisk.log
 log_print() {
   echo $1
-  echo "App Systemizer: $1" >> $LOGFILE
-  log -p i -t AppSys "$1"
+  echo "AppSystemizer: $1" >> $LOGFILE
+  log -p i -t AppSystemizer "$1"
 }
 
-[ -s $STOREDLIST ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from ${STOREDLIST/$MODDIR/}."  || log_print "Failed to load apps list from ${STOREDLIST/$MODDIR/}."
+[ -s "$STOREDLIST" ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from ${STOREDLIST/$MODDIR/}."  || log_print "Failed to load apps list from ${STOREDLIST/$MODDIR/}."
 
 for line in "${apps[@]}"; do 
   IFS=',' read canonical name path status <<< $line
   [ -z "$canonical" ] && continue
-  [ -z "$path" ] && path='priv-app'
+  path="${path:=priv-app}"
   if [ "$status" = "1" -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
   	if [[ ( ( -n "$name" && ! -d /system/${path}/${name} ) || ( -z "$name" && ! -f /system/${path}/${canonical}.apk ) ) && \
   	( ( -n "$name" && ! -d ${MODDIR}/system/${path}/${name} ) || ( -z "$name" && ! -f ${MODDIR}/system/${path}/${canonical}.apk ) ) ]]; then
-    	for i in /data/app/${canonical}-*/base.apk; do
+    	for i in "/data/app/${canonical}-*/base.apk"; do
 	      if [ "$i" != "/data/app/${canonical}-*/base.apk" ]; then
 	      	[ -n "$name" ] && newname="${name}/${name}" || newname="${canonical}"
 	      	mkdir -p ${MODDIR}/system/${path}/${name} 2>/dev/null
