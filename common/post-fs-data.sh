@@ -26,7 +26,7 @@ for line in "${apps[@]}"; do
   if [ "$status" = "1" -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
   	if [[ ( ( -n "$name" && ! -d /system/${path}/${name} ) || ( -z "$name" && ! -f /system/${path}/${canonical}.apk ) ) && \
   	( ( -n "$name" && ! -d ${MODDIR}/system/${path}/${name} ) || ( -z "$name" && ! -f ${MODDIR}/system/${path}/${canonical}.apk ) ) ]]; then
-    	for i in "/data/app/${canonical}-*/base.apk"; do
+    	for i in /data/app/${canonical}-*/base.apk; do
 	      if [ "$i" != "/data/app/${canonical}-*/base.apk" ]; then
 	      	[ -n "$name" ] && newname="${name}/${name}" || newname="${canonical}"
 	      	mkdir -p ${MODDIR}/system/${path}/${name} 2>/dev/null
