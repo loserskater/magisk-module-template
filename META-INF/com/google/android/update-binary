@@ -290,16 +290,15 @@ if ($LATESTARTSERVICE); then
   cp -af $INSTALLER/common/service.sh $MODPATH/service.sh
 fi
 
+# be careful not to overwrite the companion app settings
 unzip -o "$ZIP" extras/* -d $MODPATH
 
 if [ -d /magisk/AppSystemizer/system ]; then
 	ui_print "- Migrating existing install"
-# be careful not to overwrite the companion app
 	cp -rf /magisk/AppSystemizer/system $MODPATH/
-else
-	ui_print "- Systemizing apps"
-	sh $MODPATH/post-fs-data.sh
 fi
+ui_print "- Systemizing apps"
+sh $MODPATH/post-fs-data.sh
 
 ui_print "- Setting permissions"
 set_permissions
