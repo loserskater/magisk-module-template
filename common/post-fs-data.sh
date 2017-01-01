@@ -13,11 +13,11 @@ apps=(
 LOGFILE=/cache/magisk.log
 log_print() {
   echo $1
-  echo "AppSystemizer: $1" >> $LOGFILE
+  echo "App Systemizer: $1" >> $LOGFILE
   log -p i -t AppSystemizer "$1"
 }
 
-[ -s "$STOREDLIST" ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from ${STOREDLIST/$MODDIR/}."  || log_print "Failed to load apps list from ${STOREDLIST/$MODDIR/}."
+[ -s "$STOREDLIST" ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from ${STOREDLIST#${MODDIR}/}."  || log_print "Failed to load apps list from ${STOREDLIST#${MODDIR}/}."
 
 for line in "${apps[@]}"; do 
   IFS=',' read canonical name path status <<< $line
@@ -30,7 +30,7 @@ for line in "${apps[@]}"; do
 	      if [ "$i" != "/data/app/${canonical}-*/base.apk" ]; then
 	      	[ -n "$name" ] && newname="${name}/${name}" || newname="${canonical}"
 	      	mkdir -p ${MODDIR}/system/${path}/${name} 2>/dev/null
-	      	cp -f $i ${MODDIR}/system/${path}/${newname}.apk && log_print "Created ${MODDIR}/${path}/${newname}.apk" || log_print "Copy Failed: $i ${MODDIR}/system/${path}/${newname}.apk"
+	      	cp -f $i ${MODDIR}/system/${path}/${newname}.apk && log_print "Created ${path}/${newname}.apk" || log_print "Copy Failed: $i ${MODDIR}/system/${path}/${newname}.apk"
 	      	chown 0:0 ${MODDIR}/system/${path}/${name}
 	      	chmod 0755 ${MODDIR}/system/${path}/${name}
 	      	chown 0:0 ${MODDIR}/system/${path}/${newname}.apk
