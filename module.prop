@@ -1,7 +1,7 @@
 id=AppSystemizer
 name=App Systemizer
-version=1.3.1
-versionCode=18
+version=1.4.0
+versionCode=19
 author=stangri
 description=This module converts a predefined list of user-installed apps to system apps.
 support=http://forum.xda-developers.com/showthread.php?t=3432382
