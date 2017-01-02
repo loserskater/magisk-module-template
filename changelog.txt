@@ -1,4 +1,4 @@
-1.4.0
+10.0.0
 	- Magisk v10 compatible
 
 1.3.1
