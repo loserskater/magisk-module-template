@@ -1,3 +1,6 @@
+10.0.1
+	- GSam Battery Monitor Pro (thanks Noxious Ninja!)
+
 10.0.0
 	- Magisk v10 compatible
 
