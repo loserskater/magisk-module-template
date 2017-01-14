@@ -1,3 +1,6 @@
+10.0.2
+	- Viper4Android (thanks FlemishDroid!)
+
 10.0.1
 	- GSam Battery Monitor Pro (thanks Noxious Ninja!)
 

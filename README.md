@@ -14,3 +14,4 @@ This module converts a pre-defined list of installed apps to system apps.
 * GSam Battery Monitor and GSam Battery Monitor Pro -- thanks @jsaxon2 and @Noxious Ninja!
 * Greenify -- thanks @yochananmarqos!
 * Chrome Customizations -- thanks @Link_of_Hyrule!
+* Viper4Android -- thanks @FlemishDroid!
