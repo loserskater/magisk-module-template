@@ -1,5 +1,5 @@
 10.0.2
-	- Viper4Android (thanks FlemishDroid!)
+	- Viper4Android, just systemizes the APK, still requires a separate ViPER4Android module (thanks FlemishDroid!)
 
 10.0.1
 	- GSam Battery Monitor Pro (thanks Noxious Ninja!)
