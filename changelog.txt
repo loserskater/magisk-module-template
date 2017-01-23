@@ -1,8 +1,12 @@
+10.0.3
+	- Support for Brevent -- thanks simonsmh!
+	- Support for Disguised Cerberus -- thanks iNFeRNuSDaRK!
+
 10.0.2
-	- Viper4Android, just systemizes the APK, still requires a separate ViPER4Android module (thanks FlemishDroid!)
+	- Support for Viper4Android (just systemizes the APK, still requires a separate ViPER4Android module) -- thanks FlemishDroid!
 
 10.0.1
-	- GSam Battery Monitor Pro (thanks Noxious Ninja!)
+	- Support for GSam Battery Monitor Pro -- thanks Noxious Ninja!
 
 10.0.0
 	- Magisk v10 compatible
@@ -14,13 +18,13 @@
 	- Second reboot no longer required
 
 1.2.5
-	- Support for Chrome Customizations (thanks Link_of_Hyrule!)
+	- Support for Chrome Customizations -- thanks Link_of_Hyrule!
 
 1.2.4
-	- Support for Greenify and BetterBatteryStats XDA Edition (thanks yochananmarqos!)
+	- Support for Greenify and BetterBatteryStats XDA Edition -- thanks yochananmarqos!
 
 1.2.3
-	- Support for GSam Battery Monitor (thanks jsaxon2!)
+	- Support for GSam Battery Monitor -- thanks jsaxon2!
 
 1.2.2
 	- Support for com.uzumapps.wakelockdetector.noroot removed
