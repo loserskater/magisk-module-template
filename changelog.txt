@@ -1,3 +1,6 @@
+10.0.4
+	- Support for GSam Battery Monitor and GSam Battery Monitor Pro removed -- thanks yochananmarqos!
+
 10.0.3
 	- Support for Brevent -- thanks simonsmh!
 	- Support for Disguised Cerberus -- thanks iNFeRNuSDaRK!
