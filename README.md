@@ -12,7 +12,7 @@ This module converts a pre-defined list of installed apps to system apps.
 * Google Contacts and Google Dialer (for devices shipping with custom Contacts and Dialer, like HTC devices)
 * Unicon Icon Themer
 * ProximityService
-* Greenify -- thanks @yochananmarqos!
+* Greenify (free and Donation Package editions) -- thanks @yochananmarqos!
 * Chrome Customizations -- thanks @Link_of_Hyrule!
 * Viper4Android (just systemizes the APK, still requires a separate ViPER4Android module) -- thanks @FlemishDroid!
 * Brevent -- thanks @simonsmh!

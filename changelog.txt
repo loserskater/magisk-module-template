@@ -1,5 +1,16 @@
+10.0.7
+	- Reworked logic for determining if the app is already system or has been systemized.
+	- Actively unsystemize GSam Battery Monitor and GSam Battery Monitor Pro again.
+	- Actively unsystemize uninstalled apps listed in appslist.conf.
+
+10.0.6
+	- Support for Greenify (Donation Package) added.
+
+10.0.5
+	- Emergency release hopefully fixing issue with 10.0.4 installs (dropped GSam Battery Monitor and GSam Battery Monitor Pro from appslist.conf).
+
 10.0.4
-	- Support for GSam Battery Monitor and GSam Battery Monitor Pro removed -- thanks yochananmarqos!
+	- Actively unsystemize GSam Battery Monitor and GSam Battery Monitor Pro -- thanks yochananmarqos!
 
 10.0.3
 	- Support for Brevent -- thanks simonsmh!
