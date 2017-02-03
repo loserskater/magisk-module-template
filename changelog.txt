@@ -3,6 +3,7 @@
 	- Added more Magisk Log output during the module update.
 	- Actively unsystemize GSam Battery Monitor and GSam Battery Monitor Pro again.
 	- Actively unsystemize uninstalled apps listed in appslist.conf.
+	- Error-proofed some file manipulation code.
 
 10.0.6
 	- Support for Greenify (Donation Package) added.
