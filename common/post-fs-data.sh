@@ -10,9 +10,8 @@ apps=(
 "com.google.android.apps.tycho,Tycho,app,1"
 )
 
-LOGFILE=/cache/magisk.log
 log_print() {
-  echo $1
+  local LOGFILE=/cache/magisk.log
   echo "App Systemizer: $1" >> $LOGFILE
   log -p i -t AppSystemizer "$1"
 }
