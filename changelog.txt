@@ -1,5 +1,6 @@
 10.0.7
 	- Reworked binary logic for determining if the app is already system or has been systemized.
+	- Added more Magisk Log output during the module update.
 	- Actively unsystemize GSam Battery Monitor and GSam Battery Monitor Pro again.
 	- Actively unsystemize uninstalled apps listed in appslist.conf.
 
