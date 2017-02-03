@@ -17,5 +17,5 @@ This module converts a pre-defined list of installed apps to system apps.
 * Viper4Android (just systemizes the APK, still requires a separate ViPER4Android module)
 * Brevent
 
-## Supported Apps which no longer need to be systemized
-* GSam Battery Monitor and GSam Battery Monitor Pro no longer require being systemized
+## Supported Apps which no longer require to be systemized
+* GSam Battery Monitor and GSam Battery Monitor Pro
