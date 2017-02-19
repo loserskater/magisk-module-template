@@ -1,5 +1,5 @@
 # AppSystemizer
-This module converts a pre-defined list of installed apps to system apps.
+This module converts a pre-defined list of installed apps to system apps. [More details in support thread](https://forum.xda-developers.com/showthread.php?t=3477512).
 
 ## Supported Apps
 * Action Launcher (for Google Now integration)
