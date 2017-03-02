@@ -21,8 +21,12 @@ This module converts a pre-defined list of installed apps to system apps. [More 
 * GSam Battery Monitor and GSam Battery Monitor Pro
 
 ## Change Log
-10.0.8
-  - Added FakeGPS (3 apps)
+10.0.9
+    - Fake GPS JoyStick
+    - GPS JoyStick - Fake Fly GPS GO
+
+  10.0.8
+    - Added FakeGPS (3 apps)
 
 10.0.7
 	- Reworked binary logic for determining if the app is already system or has been systemized.
