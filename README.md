@@ -25,7 +25,7 @@ This module converts a pre-defined list of installed apps to system apps. [More 
     - Fake GPS JoyStick
     - GPS JoyStick - Fake Fly GPS GO
 
-  10.0.8
+10.0.8
     - Added FakeGPS (3 apps)
 
 10.0.7
