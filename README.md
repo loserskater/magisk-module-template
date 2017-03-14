@@ -21,6 +21,9 @@ This module converts a pre-defined list of installed apps to system apps. [More 
 * GSam Battery Monitor and GSam Battery Monitor Pro
 
 ## Change Log
+10.0.11
+    - Tiles -- thanks grandpajiver!
+
 10.0.10
     - F-Droid
 

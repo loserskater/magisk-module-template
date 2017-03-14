@@ -1,6 +1,6 @@
 id=AppSystemizer
 name=App Systemizer
-version=10.0.10
-versionCode=30
+version=10.0.11
+versionCode=31
 author=stangri
 description=This module converts a predefined list of user-installed apps to system apps.
