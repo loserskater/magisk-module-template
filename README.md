@@ -3,7 +3,7 @@ This module converts a pre-defined list of installed apps to system apps. [More 
 
 ## Supported Apps
 * Action Launcher (for Google Now integration)
-* Pixel Launcher (and its Wallpaper Picker)
+* Nexus/Pixel C Launcher (and their Wallpaper Picker)
 * Project Fi (for Project Fi-compatible phones running third-party ROMs)
 * Cerberus Anti Theft
 * Disguised Cerberus Anti Theft
@@ -21,7 +21,8 @@ This module converts a pre-defined list of installed apps to system apps. [More 
 * GSam Battery Monitor and GSam Battery Monitor Pro
 
 ## Change Log
-11.0.1
+11.0.2
+  - Pixel C Launcher
   - microG/GApps alternatives -- thanks animeme!
   - Shell script bugfix (bug caused apps to unsystemize).
   - Magisk v11-compatible, use of template v2.

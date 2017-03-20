@@ -6,11 +6,13 @@ MODDIR=${0%/*}
 # This script will be executed in post-fs-data mode
 # More info in the main Magisk thread
 
+set +f
 STOREDLIST=${MODDIR}/extras/appslist.conf
 #STOREDLIST=/data/data/net.loserskater.appsystemizer/appslist.conf
 
 apps=(
 "com.google.android.apps.nexuslauncher,NexusLauncherPrebuilt,priv-app,1"
+"com.google.android.apps.pixelclauncher,PixelCLauncherPrebuilt,priv-app,1"
 "com.google.android.apps.wallpaper,WallpaperPickerGooglePrebuilt,app,1"
 "com.google.android.apps.tycho,Tycho,app,1"
 )
