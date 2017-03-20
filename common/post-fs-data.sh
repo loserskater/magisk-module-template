@@ -28,11 +28,10 @@ for line in "${apps[@]}"; do
   [ -z "$canonical" ] && continue
   path="${path:=priv-app}"
   [ -n "$name" ] && newname="${name}/${name}" || newname="${canonical}"
-  if [[ "$status" = "1" && "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]]; then
-# App is active in appslist.conf, canonical APK exists in data
-  	if [[ ( -z "$name" || ! -d "/system/${path}/${name}" ) && ( ! -f "/system/${path}/${canonical}.apk" ) && \
-  	      ( -z "$name" || ! -d "${MODDIR}/system/${path}/${name}" ) && ( ! -f "${MODDIR}/system/${path}/${canonical}.apk" ) ]]; then
-# App is not currently a system app and has not been systemied by the module
+  # App is active in appslist.conf, canonical APK exists in data
+  if [ "$status" = "1" ] && [ "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
+    # App is not currently a system app and has not been systemized by the module
+  	if [[ ! -f "/system/${path}/${newname}.apk" && ! -f "${MODDIR}/system/${path}/${newname}.apk" ]]; then
     	for i in /data/app/${canonical}-*/base.apk; do
 	      if [ "$i" != "/data/app/${canonical}-*/base.apk" ]; then
 	      	mkdir -p "${MODDIR}/system/${path}/${name}" 2>/dev/null
@@ -45,13 +44,13 @@ for line in "${apps[@]}"; do
     	done
   	fi
   fi
-  if [[ "$status" = "1" && "$(echo /data/app/${canonical}-*)" = "/data/app/${canonical}-*" ]]; then
-# App is active in appslist.conf, but canonical APK no longer exists in data
+  # App is active in appslist.conf, but canonical APK no longer exists in data
+  if [ "$status" = "1" ] && [ "$(echo /data/app/${canonical}-*)" = "/data/app/${canonical}-*" ]; then
   	[[ -n "$name" && -d "${MODDIR}/system/${path}/${name}" ]] && rm -rf "${MODDIR}/system/${path}/${name}" && log_print "Unsystemizing uninstalled $name."
   	[[ -f "${MODDIR}/system/${path}/${canonical}.apk" ]] && rm -rf "${MODDIR}/system/${path}/${canonical}.apk" && log_print "Unsystemizing uninstalled $canonical.apk."
   fi
-  if [[ "$status" != "1" && "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]]; then
-# App is inactive in appslist.conf, canonical APK exists in data
+  # App is inactive in appslist.conf, canonical APK exists in data
+  if [ "$status" != "1" ] && [ "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
   	[[ -n "$name" && -d "${MODDIR}/system/${path}/${name}" ]] && rm -rf "${MODDIR}/system/${path}/${name}" && log_print "Unsystemizing inactive $name."
    	[[ -f "${MODDIR}/system/${path}/${canonical}.apk" ]] && rm -rf "${MODDIR}/system/${path}/${canonical}.apk" && log_print "Unsystemizing inactive $canonical.apk."
   fi

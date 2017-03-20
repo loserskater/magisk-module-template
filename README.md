@@ -21,49 +21,29 @@ This module converts a pre-defined list of installed apps to system apps. [More 
 * GSam Battery Monitor and GSam Battery Monitor Pro
 
 ## Change Log
-11.0.0
-    - Magisk v11-compatible, use of template v2.
+11.0.1
+  - microG/GApps alternatives -- thanks animeme!
+  - Shell script bugfix (bug caused apps to unsystemize).
+  - Magisk v11-compatible, use of template v2.
 
 10.0.11
-    - Tiles -- thanks grandpajiver!
-
-10.0.10
-    - F-Droid
-
-10.0.9
-    - Fake GPS JoyStick
-    - GPS JoyStick - Fake Fly GPS GO
-
-10.0.8
-    - Added FakeGPS (3 apps)
-
-10.0.7
+  - Tiles -- thanks grandpajiver!
+  - F-Droid
+  - Fake GPS JoyStick
+  - GPS JoyStick - Fake Fly GPS GO
+  - Added FakeGPS (3 apps)
 	- Reworked binary logic for determining if the app is already system or has been systemized.
 	- Added more Magisk Log output during the module update.
 	- Error-proofed some file manipulation code.
 	- Actively unsystemize GSam Battery Monitor and GSam Battery Monitor Pro again.
 	- Actively unsystemize uninstalled apps listed in appslist.conf.
-
-10.0.6
 	- Support for Greenify (Donation Package) added.
-
-10.0.5
 	- Emergency release hopefully fixing issue with 10.0.4 installs (dropped GSam Battery Monitor and GSam Battery Monitor Pro from appslist.conf).
-
-10.0.4
 	- Actively unsystemize GSam Battery Monitor and GSam Battery Monitor Pro -- thanks yochananmarqos!
-
-10.0.3
 	- Support for Brevent -- thanks simonsmh!
 	- Support for Disguised Cerberus -- thanks iNFeRNuSDaRK!
-
-10.0.2
 	- Support for Viper4Android (just systemizes the APK, still requires a separate ViPER4Android module) -- thanks FlemishDroid!
-
-10.0.1
 	- Support for GSam Battery Monitor Pro -- thanks Noxious Ninja!
-
-10.0.0
 	- Magisk v10 compatible
 
 1.3.1
