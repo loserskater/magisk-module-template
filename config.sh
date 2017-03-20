@@ -2,21 +2,21 @@
 #
 # Magisk
 # by topjohnwu
-# 
+#
 # This is a template zip for developers
 #
 ##########################################################################################
 ##########################################################################################
-# 
+#
 # Instructions:
-# 
+#
 # 1. Place your files into system folder (delete the placeholder file)
 # 2. Fill in your module's info into module.prop
 # 3. Configure the settings in this file (common/config.sh)
 # 4. For advanced features, add shell commands into the script files under common:
 #    post-fs-data.sh, service.sh
 # 5. For changing props, add your additional/modified props into common/system.prop
-# 
+#
 ##########################################################################################
 
 ##########################################################################################
@@ -62,7 +62,8 @@ print_modname() {
 # By default Magisk will merge your files with the original system
 # Directories listed here however, will be directly mounted to the correspond directory in the system
 
-# This is an example (these values shall be overwritten)
+# You don't need to remove the example below, these values will be overwritten by your own list
+# This is an example
 REPLACE="
 /system/app/Youtube
 /system/priv-app/SystemUI
@@ -70,9 +71,8 @@ REPLACE="
 /system/framework
 "
 
-# Construct your own list here
-# !!! Don't remove this if you don't need to replace anything, leave it empty
-# It shall overwrite the example
+# Construct your own list here, it will overwrite the example
+# !DO NOT! remove this if you don't need to replace anything, leave it empty as it is now
 REPLACE="
 "
 

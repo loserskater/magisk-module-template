@@ -1,5 +1,10 @@
 #!/system/bin/sh
+# Please don't hardcode /magisk/modname/... ; instead, please use $MODDIR/...
+# This will make your scripts compatible even if Magisk change its mount point in the future
 MODDIR=${0%/*}
+
+# This script will be executed in post-fs-data mode
+# More info in the main Magisk thread
 
 STOREDLIST=${MODDIR}/extras/appslist.conf
 #STOREDLIST=/data/data/net.loserskater.appsystemizer/appslist.conf
@@ -18,12 +23,12 @@ log_print() {
 
 [ -s "$STOREDLIST" ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from ${STOREDLIST#${MODDIR}/}."  || log_print "Failed to load apps list from ${STOREDLIST#${MODDIR}/}."
 
-for line in "${apps[@]}"; do 
+for line in "${apps[@]}"; do
   IFS=',' read canonical name path status <<< $line
   [ -z "$canonical" ] && continue
   path="${path:=priv-app}"
   [ -n "$name" ] && newname="${name}/${name}" || newname="${canonical}"
-  if [ "$status" = "1" -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
+  if [[ "$status" = "1" && "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]]; then
 # App is active in appslist.conf, canonical APK exists in data
   	if [[ ( -z "$name" || ! -d "/system/${path}/${name}" ) && ( ! -f "/system/${path}/${canonical}.apk" ) && \
   	      ( -z "$name" || ! -d "${MODDIR}/system/${path}/${name}" ) && ( ! -f "${MODDIR}/system/${path}/${canonical}.apk" ) ]]; then
@@ -40,14 +45,14 @@ for line in "${apps[@]}"; do
     	done
   	fi
   fi
-  if [ "$status" = "1" -a "$(echo /data/app/${canonical}-*)" == "/data/app/${canonical}-*" -a  ]; then
+  if [[ "$status" = "1" && "$(echo /data/app/${canonical}-*)" = "/data/app/${canonical}-*" ]]; then
 # App is active in appslist.conf, but canonical APK no longer exists in data
-  	[ -n "$name" -a -d "${MODDIR}/system/${path}/${name}" ] && rm -rf "${MODDIR}/system/${path}/${name}" && log_print "Unsystemizing uninstalled $name."
-  	[ -f "${MODDIR}/system/${path}/${canonical}.apk" ] && rm -rf "${MODDIR}/system/${path}/${canonical}.apk" && log_print "Unsystemizing uninstalled $canonical.apk."
+  	[[ -n "$name" && -d "${MODDIR}/system/${path}/${name}" ]] && rm -rf "${MODDIR}/system/${path}/${name}" && log_print "Unsystemizing uninstalled $name."
+  	[[ -f "${MODDIR}/system/${path}/${canonical}.apk" ]] && rm -rf "${MODDIR}/system/${path}/${canonical}.apk" && log_print "Unsystemizing uninstalled $canonical.apk."
   fi
-  if [ "$status" != "1" -a "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
+  if [[ "$status" != "1" && "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]]; then
 # App is inactive in appslist.conf, canonical APK exists in data
-  	[ -n "$name" -a -d "${MODDIR}/system/${path}/${name}" ] && rm -rf "${MODDIR}/system/${path}/${name}" && log_print "Unsystemizing inactive $name."
-   	[ -f "${MODDIR}/system/${path}/${canonical}.apk" ] && rm -rf "${MODDIR}/system/${path}/${canonical}.apk" && log_print "Unsystemizing inactive $canonical.apk."
+  	[[ -n "$name" && -d "${MODDIR}/system/${path}/${name}" ]] && rm -rf "${MODDIR}/system/${path}/${name}" && log_print "Unsystemizing inactive $name."
+   	[[ -f "${MODDIR}/system/${path}/${canonical}.apk" ]] && rm -rf "${MODDIR}/system/${path}/${canonical}.apk" && log_print "Unsystemizing inactive $canonical.apk."
   fi
 done
