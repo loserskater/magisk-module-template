@@ -21,10 +21,10 @@ This module converts a pre-defined list of installed apps to system apps. [More 
 * GSam Battery Monitor and GSam Battery Monitor Pro
 
 ## Change Log
-11.0.2
+11.0.3
   - Pixel C Launcher
   - microG/GApps alternatives -- thanks animeme!
-  - Shell script bugfix (bug caused apps to unsystemize).
+  - Shell script bugfix (bug caused apps to unsystemize on start).
   - Magisk v11-compatible, use of template v2.
 
 10.0.11
