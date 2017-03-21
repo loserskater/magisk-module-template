@@ -9,6 +9,7 @@ MODDIR=${0%/*}
 set +f
 STOREDLIST=${MODDIR}/extras/appslist.conf
 #STOREDLIST=/data/data/net.loserskater.appsystemizer/appslist.conf
+ver="$(sed -n 's/version=//p' ${MODDIR}/module.prop)"; ver=${ver:+ $ver};
 
 apps=(
 "com.google.android.apps.nexuslauncher,NexusLauncherPrebuilt,priv-app,1"
@@ -19,8 +20,8 @@ apps=(
 
 log_print() {
   local LOGFILE=/cache/magisk.log
-  echo "App Systemizer: $1" >> $LOGFILE
-  log -p i -t AppSystemizer "$1"
+  echo "AppSystemizer${ver}: $*" >> $LOGFILE
+  log -p i -t "AppSystemizer${ver}" "$*"
 }
 
 [ -d /system/priv-app ] || log_print "No access to /system/priv-app!"
