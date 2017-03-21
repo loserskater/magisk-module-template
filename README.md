@@ -16,8 +16,14 @@ This module converts a pre-defined list of installed apps to system apps. [More 
 * Chrome Customizations
 * Viper4Android (just systemizes the APK, still requires a separate ViPER4Android module)
 * Brevent
+* Added FakeGPS (3 apps)
+* GPS JoyStick - Fake Fly GPS GO
+* Fake GPS JoyStick
+* F-Droid
+* Tiles
+* microG/GApps alternatives
 
-### Supported Apps which no longer require to be systemized
+#### Supported Apps which no longer require to be systemized
 * GSam Battery Monitor and GSam Battery Monitor Pro
 
 ## Change Log
