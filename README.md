@@ -27,19 +27,19 @@ This module converts a pre-defined list of installed apps to system apps. [More 
 * GSam Battery Monitor and GSam Battery Monitor Pro
 
 ## Change Log
-11.0.4
+11.0.5
+  - Fix bug with Cerberus being unsystemized on start. If you've used the Cerberus APK not from the play store, but from Cerberus web-site directly, please uninstall AppSystemizer first, reboot and install the new version of AppSystemizer after reboot.
   - Print version number into magisk log.
-  - Pixel C Launcher
+  - Pixel C Launcher support added.
   - microG/GApps alternatives -- thanks animeme!
-  - Shell script bugfix (bug caused apps to unsystemize on start).
   - Magisk v11-compatible, use of template v2.
 
 10.0.11
   - Tiles -- thanks grandpajiver!
-  - F-Droid
-  - Fake GPS JoyStick
-  - GPS JoyStick - Fake Fly GPS GO
-  - Added FakeGPS (3 apps)
+  - F-Droid support added.
+  - Fake GPS JoyStick support added.
+  - GPS JoyStick - Fake Fly GPS GO support added.
+  - Added FakeGPS (3 apps) support added.
 	- Reworked binary logic for determining if the app is already system or has been systemized.
 	- Added more Magisk Log output during the module update.
 	- Error-proofed some file manipulation code.
@@ -52,13 +52,13 @@ This module converts a pre-defined list of installed apps to system apps. [More 
 	- Support for Disguised Cerberus -- thanks iNFeRNuSDaRK!
 	- Support for Viper4Android (just systemizes the APK, still requires a separate ViPER4Android module) -- thanks FlemishDroid!
 	- Support for GSam Battery Monitor Pro -- thanks Noxious Ninja!
-	- Magisk v10 compatible
+	- Magisk v10 compatible.
 
 1.3.1
-	- Modified module install/update logic
+	- Modified module install/update logic.
 
 1.3.0
-	- Second reboot no longer required
+	- Second reboot no longer required.
 
 1.2.5
 	- Support for Chrome Customizations -- thanks Link_of_Hyrule!
@@ -70,43 +70,43 @@ This module converts a pre-defined list of installed apps to system apps. [More 
 	- Support for GSam Battery Monitor -- thanks jsaxon2!
 
 1.2.2
-	- Support for com.uzumapps.wakelockdetector.noroot removed
+	- Support for com.uzumapps.wakelockdetector.noroot removed.
 
 1.2.1
-	- Support for Proximity Services
+	- Support for Proximity Services.
 
 1.2.0
-	- Fixed bug with missing appslist.conf file after migration to magisk-v9 module template
+	- Fixed bug with missing appslist.conf file after migration to magisk-v9 module template.
 
 1.1.9
-    - Migration to magisk-v9 module template
+    - Migration to magisk-v9 module template.
 
 1.1.7
-    - Preparation for external apps list/companion app
+    - Preparation for external apps list/companion app.
 
 1.1.6
-    - Added support for Google Contacts and Google Dialer
+    - Added support for Google Contacts and Google Dialer.
 
 1.1.5
-    - Added back support for BetterBatteryStats
+    - Added back support for BetterBatteryStats.
 
 1.1.4
-    - Removed support for BetterBatteryStats
+    - Removed support for BetterBatteryStats.
 
 1.1.3
-    - Support for Wakelock Detector
-    - Support for BetterBatteryStats
+    - Support for Wakelock Detector.
+    - Support for BetterBatteryStats.
 
 1.1.2
-    - Bash use bugfix
-    - Support for SuperSu
+    - Bash use bugfix.
+    - Support for SuperSu.
 
 1.1.1
-    - Bugfixes
+    - Bugfixes.
 
 1.1.0    
-    - Support for Cerberus Anti Theft
-    - Logic rewrite allowing to add new apps quicker
+    - Support for Cerberus Anti Theft.
+    - Logic rewrite allowing to add new apps quicker.
 
 1.0.0
-    - Initial release
+    - Initial release.

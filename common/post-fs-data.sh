@@ -39,10 +39,10 @@ for line in "${apps[@]}"; do
     1)
       if [ "$(echo /data/app/${canonical}-*)" != "/data/app/${canonical}-*" ]; then
         # App is active in appslist.conf, canonical APK exists in data
-        [ -e "${MODDIR}/system/${path}/${newname}.apk" ] && { log_print "Ignoring /data/app/${canonical}-*: already a systemized app."; continue; }
-        [[ -n "$name" && -e "${MODDIR}/system/${path}/${name}" ]] && { log_print "Ignoring /data/app/${canonical}-*: already a systemized app."; continue; }
-        [ -e "/system/${path}/${newname}.apk" ] && { log_print "Ignoring /data/app/${canonical}-*: already a system app."; continue; }
-        [[ -n "$name" && -e "/system/${path}/${name}" ]] && { log_print "Ignoring /data/app/${canonical}-*: already a system app."; continue; }
+        [ -e "${MODDIR}/system/${path}/${newname}.apk" ] && { log_print "Ignoring /data/app/${canonical}: already a systemized app."; continue; }
+        [[ -n "$name" && -e "${MODDIR}/system/${path}/${name}" ]] && { log_print "Ignoring /data/app/${canonical}: already a systemized app."; continue; }
+        [ -e "/system/${path}/${newname}.apk" ] && { log_print "Ignoring /data/app/${canonical}: already a system app."; continue; }
+        [[ -n "$name" && -e "/system/${path}/${name}" ]] && { log_print "Ignoring /data/app/${canonical}: already a system app."; continue; }
         	for i in /data/app/${canonical}-*/base.apk; do
     	      if [ "$i" != "/data/app/${canonical}-*/base.apk" ]; then
     	      	mkdir -p "${MODDIR}/system/${path}/${name}" 2>/dev/null
