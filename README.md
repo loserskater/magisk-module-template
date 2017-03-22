@@ -22,12 +22,15 @@ This module converts a pre-defined list of installed apps to system apps. [More 
 * F-Droid
 * Tiles
 * microG/GApps alternatives
+* Pseudo GPS
+* Mock Locations
 
 #### Supported Apps which no longer require to be systemized
 * GSam Battery Monitor and GSam Battery Monitor Pro
 
 ## Change Log
-11.0.5
+11.0.6
+  - Added support for Pseudo GPS and Mock Locations -- thanks cangurob!
   - Fix bug with Cerberus being unsystemized on start. If you've used the Cerberus APK not from the play store, but from Cerberus web-site directly, please uninstall AppSystemizer first, reboot and install the new version of AppSystemizer after reboot.
   - Print version number into magisk log.
   - Pixel C Launcher support added.
