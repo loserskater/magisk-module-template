@@ -10,12 +10,6 @@ umask 022
 # Functions
 ##########################################################################################
 
-log_print() {
-  local LOGFILE=/cache/magisk.log
-  echo "App Systemizer: $1" >> $LOGFILE
-  log -p i -t AppSystemizer "$1"
-}
-
 ui_print() {
   if $BOOTMODE; then
     echo "$1"
@@ -114,7 +108,7 @@ request_size_check() {
 
 image_size_check() {
   e2fsck -yf $1
-  curBlocks=`e2fsck -n $1 2>/dev/null | cut -d, -f3 | cut -d\  -f2`;
+  curBlocks=`e2fsck -n $1 2>/dev/null | grep $1 | cut -d, -f3 | cut -d\  -f2`;
   curUsedM=`echo "$curBlocks" | cut -d/ -f1`
   curSizeM=`echo "$curBlocks" | cut -d/ -f1`
   curFreeM=$(((curSizeM - curUsedM) * 4 / 1024))
@@ -302,18 +296,6 @@ fi
 if $LATESTARTSERVICE; then
   cp -af $INSTALLER/common/service.sh $MODPATH/service.sh
 fi
-
-# be careful not to overwrite the companion app settings
-unzip -o "$ZIP" "extras/*" -d $MODPATH
-
-if [ -d /magisk/AppSystemizer/system ]; then
-	log_print "Migrating existing install"
-	ui_print "- Migrating existing install"
-	cp -rf /magisk/AppSystemizer/system $MODPATH/
-fi
-ui_print "- Running AppSystemizer"
-log_print "Running AppSystemizer"
-sh $MODPATH/post-fs-data.sh
 
 ui_print "- Setting permissions"
 set_permissions

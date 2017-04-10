@@ -42,7 +42,8 @@ for pkg_id in "${apps[@]}"; do
         [ -e "/system/${path}/${pkg_name}" ] && { log_print "Ignoring /data/app/${pkg_id}: already a system app."; continue; }
 
       	mkdir -p "${MODDIR}/system/${path}/${pkg_name}" 2>/dev/null
-	      cp -f "$i" "${MODDIR}/system/${path}/${pkg_name}/${pkg_id}.apk" && log_print "Created ${path}/${pkg_name}/${pkg_id}.apk" || log_print "Copy Failed: $i ${MODDIR}/system/${path}/${pkg_name}/${pkg_id}.apk"
+	      cp -f "$i" "${MODDIR}/system/${path}/${pkg_name}/${pkg_id}.apk" && log_print "Created ${path}/${pkg_name}/${pkg_id}.apk" || \
+          log_print "Copy Failed: $i ${MODDIR}/system/${path}/${pkg_name}/${pkg_id}.apk"
 	     	chown 0:0 "${MODDIR}/system/${path}/${pkg_name}"
 	     	chmod 0755 "${MODDIR}/system/${path}/${pkg_name}"
 	     	chown 0:0 "${MODDIR}/system/${path}/${pkg_name}/${pkg_id}.apk"
