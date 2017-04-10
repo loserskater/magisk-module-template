@@ -25,7 +25,7 @@ log_print() {
 [ -d /system/priv-app ] || log_print "No access to /system/priv-app!"
 [ -d /data/app ] || log_print "No access to /data/app!"
 
-[ -s "$STOREDLIST" ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from ${STOREDLIST#${MODDIR}/}."  || log_print "Failed to load apps list from ${STOREDLIST#${MODDIR}/}."
+[ -s "$STOREDLIST" ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from ${STOREDLIST}."  || log_print "Failed to load apps list from ${STOREDLIST}."
 
 for pkg_id in "${apps[@]}"; do
   [ -z "$pkg_id" ] && continue
