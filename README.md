@@ -30,6 +30,10 @@ This module converts a pre-defined list of installed apps to system apps (system
 * GSam Battery Monitor and GSam Battery Monitor Pro
 
 ## Change Log
+12.0.0
+  - Better Intergration with companion app.
+  - Companion app update.
+
 11.1.0
   - Now includes companion app written by [@loserskater](https://github.com/loserskater).
 
