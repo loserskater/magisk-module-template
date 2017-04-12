@@ -11,9 +11,9 @@ STOREDLIST=/data/data/com.loserskater.appsystemizer/files/appslist.conf
 ver="$(sed -n 's/version=//p' ${MODDIR}/module.prop)"; ver=${ver:+ $ver};
 
 apps=(
-"com.google.android.apps.nexuslauncher,Pixel Launcher"
-"com.google.android.apps.pixelclauncher,Pixel Launcher"
-"com.actionlauncher.playstore,Action Launcher 3"
+"com.google.android.apps.nexuslauncher,PixelLauncher"
+"com.google.android.apps.pixelclauncher,PixelLauncher"
+"com.actionlauncher.playstore,ActionLauncher3"
 )
 
 log_print() {

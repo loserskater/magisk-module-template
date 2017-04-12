@@ -2,29 +2,9 @@
 This module converts a pre-defined list of installed apps to system apps (systemlessly, as in without modifying your /system partition, thru magisk). Now comes with companion app, which lets you pick any of the user-installed apps to be converted to a system app (you'll need to reboot twice to "systemize" apps you select). If you want full control over which apps do/do not get systemized, you'll need to edit the ```/magisk/AppSystemizer/extras/appslist.conf``` text file. [Support thread](https://forum.xda-developers.com/showthread.php?t=3477512).
 
 ## Supported Apps
-* Action Launcher (for Google Now integration)
+Only the following launchers are systemized by default. If you need to systemize other apps, use the companion App Systermizer application.
+* Action Launcher 3 (for Google Now integration)
 * Nexus/Pixel C Launcher (and their Wallpaper Picker)
-* Project Fi (for Project Fi-compatible phones running third-party ROMs)
-* Cerberus Anti Theft
-* Disguised Cerberus Anti Theft
-* Wakelock Detector (2 apps)
-* BetterBatteryStats (Play Store and XDA Edition)
-* Google Contacts and Google Dialer (for devices shipping with custom Contacts and Dialer, like HTC devices)
-* Unicon Icon Themer
-* ProximityService
-* Greenify (free and Donation Package editions)
-* Chrome Customizations
-* Viper4Android (just systemizes the APK, still requires a separate ViPER4Android module)
-* Brevent
-* Added FakeGPS (3 apps)
-* GPS JoyStick - Fake Fly GPS GO
-* Fake GPS JoyStick
-* F-Droid
-* Tiles
-* microG/GApps alternatives
-* Pseudo GPS
-* Mock Locations
-* Lockito – Fake GPS itinerary
 
 #### Supported Apps which no longer require to be systemized
 * GSam Battery Monitor and GSam Battery Monitor Pro
