@@ -11,9 +11,9 @@ STOREDLIST=/data/data/com.loserskater.appsystemizer/files/appslist.conf
 ver="$(sed -n 's/version=//p' ${MODDIR}/module.prop)"; ver=${ver:+ $ver};
 
 apps=(
-"com.google.android.apps.nexuslauncher,NexusLauncherPrebuilt"
-"com.google.android.apps.pixelclauncher,PixelCLauncherPrebuilt"
-"com.actionlauncher.playstore,ActionLauncher"
+"com.google.android.apps.nexuslauncher"
+"com.google.android.apps.pixelclauncher"
+"com.actionlauncher.playstore"
 )
 
 log_print() {
@@ -24,27 +24,36 @@ log_print() {
 
 [ -d /system/priv-app ] || log_print "No access to /system/priv-app!"
 [ -d /data/app ] || log_print "No access to /data/app!"
+[ -f "$MODDIR/files/aapt" ] || log_print "No access to $MODDIR/files/aapt!"
+chown 0:0 "$MODDIR/files/aapt"
+chmod 0755 "$MODDIR/files/aapt"
 
 [ -s "$STOREDLIST" ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from ${STOREDLIST}."  || log_print "Failed to load apps list from ${STOREDLIST}."
 
-for line in "${apps[@]}"; do
-  IFS=',' read pkg_name pkg_label <<< $line
-  [[ -z "$pkg_name" || -z "$pkg_label" ]] && { log_print "Package name or label are empty: ${pkg_name}/${pkg_label}."; continue; }
+for pkg_id in "${apps[@]}"; do
+  [ -z "$pkg_id" ] && continue
   path="${path:=priv-app}"
-    for i in /data/app/${pkg_name}-*/base.apk; do
-      if [ "$i" != "/data/app/${pkg_name}-*/base.apk" ]; then
-        [ -e "${MODDIR}/system/${path}/${pkg_label}" ] && { log_print "Ignoring /data/app/${pkg_name}: already a systemized app."; continue; }
-        [ -e "/system/${path}/${pkg_label}" ] && { log_print "Ignoring /data/app/${pkg_name}: already a system app."; continue; }
+  if [ "$(echo /data/app/${pkg_id}-*)" != "/data/app/${pkg_id}-*" ]; then
+    for i in /data/app/${pkg_id}-*/base.apk; do
+      if [ "$i" != "/data/app/${pkg_id}-*/base.apk" ]; then
+        [ -z "$pkg_name" ] && { pkg_name=$($MODDIR/files/aapt dump badging "$i" | grep "application-label:"); pkg_name="${pkg_name##*:}"; pkg_name="${pkg_name//\'/}"; }
+        [ -z "$pkg_name" ] && { pkg_name=$($MODDIR/files/aapt dump badging "$i" | grep "application-label-en:"); pkg_name="${pkg_name##*:}"; pkg_name="${pkg_name//\'/}"; }
+        [ -z "$pkg_name" ] && { pkg_name=$($MODDIR/files/aapt dump badging "$i" | grep "application-label-en-US:"); pkg_name="${pkg_name##*:}"; pkg_name="${pkg_name//\'/}"; }
+        [ -z "$pkg_name" ] && { pkg_name=$($MODDIR/files/aapt dump badging "$i" | grep "application-label-en-GB:"); pkg_name="${pkg_name##*:}"; pkg_name="${pkg_name//\'/}"; }
+        [ -z "$pkg_name" ] && { log_print "Ignoring /data/app/${pkg_id}: couldn't obtain app label."; continue; }
+        [ -e "${MODDIR}/system/${path}/${pkg_name}" ] && { log_print "Ignoring /data/app/${pkg_id}: already a systemized app."; continue; }
+        [ -e "/system/${path}/${pkg_name}" ] && { log_print "Ignoring /data/app/${pkg_id}: already a system app."; continue; }
 
-      	mkdir -p "${MODDIR}/system/${path}/${pkg_label}" 2>/dev/null
-	      cp -f "$i" "${MODDIR}/system/${path}/${pkg_label}/${pkg_name}.apk" && log_print "Created ${path}/${pkg_label}/${pkg_name}.apk" || \
-          log_print "Copy Failed: $i ${MODDIR}/system/${path}/${pkg_label}/${pkg_name}.apk"
-	     	chown 0:0 "${MODDIR}/system/${path}/${pkg_label}"
-	     	chmod 0755 "${MODDIR}/system/${path}/${pkg_label}"
-	     	chown 0:0 "${MODDIR}/system/${path}/${pkg_label}/${pkg_name}.apk"
-	     	chmod 0644 "${MODDIR}/system/${path}/${pkg_label}/${pkg_name}.apk"
-      else
-        log_print "Ignoring ${pkg_name}: app is not installed."
-      fi
+      	mkdir -p "${MODDIR}/system/${path}/${pkg_name}" 2>/dev/null
+	      cp -f "$i" "${MODDIR}/system/${path}/${pkg_name}/${pkg_id}.apk" && log_print "Created ${path}/${pkg_name}/${pkg_id}.apk" || \
+          log_print "Copy Failed: $i ${MODDIR}/system/${path}/${pkg_name}/${pkg_id}.apk"
+	     	chown 0:0 "${MODDIR}/system/${path}/${pkg_name}"
+	     	chmod 0755 "${MODDIR}/system/${path}/${pkg_name}"
+	     	chown 0:0 "${MODDIR}/system/${path}/${pkg_name}/${pkg_id}.apk"
+	     	chmod 0644 "${MODDIR}/system/${path}/${pkg_name}/${pkg_id}.apk"
+	    fi
     done
+  else
+    log_print "Ignoring ${pkg_id}: app is not installed."
+  fi
 done

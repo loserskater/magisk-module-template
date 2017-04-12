@@ -297,6 +297,10 @@ if $LATESTARTSERVICE; then
   cp -af $INSTALLER/common/service.sh $MODPATH/service.sh
 fi
 
+ui_print "- Extracting support files"
+log_print "Extracting support files"
+unzip -o "$ZIP" "files/aapt-$ARCH" -d "$MODPATH"
+mv "$MODPATH/files/aapt-$ARCH" "$MODPATH/files/aapt"
 ui_print "- Running AppSystemizer"
 log_print "Running AppSystemizer"
 sh $MODPATH/post-fs-data.sh
