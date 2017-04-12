@@ -11,9 +11,9 @@ STOREDLIST=/data/data/com.loserskater.appsystemizer/files/appslist.conf
 ver="$(sed -n 's/version=//p' ${MODDIR}/module.prop)"; ver=${ver:+ $ver};
 
 apps=(
-"com.google.android.apps.nexuslauncher,PixelLauncher"
-"com.google.android.apps.pixelclauncher,PixelLauncher"
-"com.actionlauncher.playstore,ActionLauncher3"
+"com.google.android.apps.nexuslauncher,NexusLauncherPrebuilt"
+"com.google.android.apps.pixelclauncher,PixelCLauncherPrebuilt"
+"com.actionlauncher.playstore,ActionLauncher"
 )
 
 log_print() {
@@ -30,9 +30,9 @@ path="${path:=priv-app}"; list="${apps[*]}";
 
 for i in ${MODDIR}/system/${path}/*/*.apk; do
   if [ "$i" != "${MODDIR}/system/${path}/*/*.apk" ]; then
-    pkg_name="${i##*/}"; pkg_label="${i%/*}";  pkg_label="${pkg_label##*/}";
-    if [ "$list" = "${list//$pkg_name/}" ]; then
-      log_print "Unsystemizing ${pkg_label}/${pkg_name}."
+    pkg_name="${i##*/}"; pkg_name="${pkg_name%.*}"; pkg_label="${i%/*}";  pkg_label="${pkg_label##*/}";
+    if [ "$list" = "${list//${pkg_name}/}" ]; then
+      log_print "Unsystemizing ./system/${path}/${pkg_label}/${pkg_name}. Effective after reboot."
       rm -rf ${MODDIR}/system/${path}/${pkg_label}
     fi
   fi
@@ -40,7 +40,8 @@ done
 
 for line in "${apps[@]}"; do
   IFS=',' read pkg_name pkg_label <<< $line
-  [[ -z "$pkg_name" || -z "$pkg_label" ]] && { log_print "Package name or label are empty: ${pkg_name}/${pkg_label}."; continue; }
+  [[ "$pkg_name" = "android" || "$pkg_label" = "AndroidSystem" ]] && continue
+  [[ -z "$pkg_name" || -z "$pkg_label" ]] && { log_print "Package name or package label empty: ${pkg_name}/${pkg_label}."; continue; }
     for i in /data/app/${pkg_name}-*/base.apk; do
       if [ "$i" != "/data/app/${pkg_name}-*/base.apk" ]; then
         [ -e "${MODDIR}/system/${path}/${pkg_label}" ] && { log_print "Ignoring /data/app/${pkg_name}: already a systemized app."; continue; }

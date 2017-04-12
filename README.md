@@ -4,7 +4,7 @@ This module converts a pre-defined list of installed apps to system apps (system
 ## Supported Apps
 Only the following launchers are systemized by default. If you need to systemize other apps, use the companion App Systermizer application.
 * Action Launcher 3 (for Google Now integration)
-* Nexus/Pixel C Launcher (and their Wallpaper Picker)
+* Nexus/Pixel C Launcher (for Google Now integration)
 
 #### Supported Apps which no longer require to be systemized
 * GSam Battery Monitor and GSam Battery Monitor Pro
