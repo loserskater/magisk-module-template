@@ -7,7 +7,7 @@ MODDIR=${0%/*}
 # More info in the main Magisk thread
 
 set +f
-STOREDLIST=/data/data/net.loserskater.appsystemizer/appslist.conf
+STOREDLIST=/data/data/com.loserskater.appsystemizer/files/appslist.conf
 ver="$(sed -n 's/version=//p' ${MODDIR}/module.prop)"; ver=${ver:+ $ver};
 
 apps=(
