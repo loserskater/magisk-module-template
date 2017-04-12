@@ -33,7 +33,6 @@ for line in "${apps[@]}"; do
   path="${path:=priv-app}"
     for i in /data/app/${pkg_name}-*/base.apk; do
       if [ "$i" != "/data/app/${pkg_name}-*/base.apk" ]; then
-        [ -z "$pkg_label" ] && { log_print "Ignoring /data/app/${pkg_name}: couldn't obtain app label."; continue; }
         [ -e "${MODDIR}/system/${path}/${pkg_label}" ] && { log_print "Ignoring /data/app/${pkg_name}: already a systemized app."; continue; }
         [ -e "/system/${path}/${pkg_label}" ] && { log_print "Ignoring /data/app/${pkg_name}: already a system app."; continue; }
 
