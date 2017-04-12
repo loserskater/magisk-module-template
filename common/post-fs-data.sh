@@ -26,16 +26,23 @@ log_print() {
 [ -d /data/app ] || log_print "No access to /data/app!"
 
 [ -s "$STOREDLIST" ] && eval apps="($(<${STOREDLIST}))" && log_print "Loaded apps list from ${STOREDLIST}."  || log_print "Failed to load apps list from ${STOREDLIST}."
+path="${path:=priv-app}"
+
+for i in ${MODDIR}/system/${path}/*/*.apk; do
+  pkg_name="${i##*/}"; pkg_label="${i%/*}";  pkg_label="${pkg_label##*/}";
+  if [ "${apps[@]}" = "${apps[@]//${pkg_name}/}" ]; then
+    log_print "Unsystemizing ${pkg_label}/${pkg_name}."
+    rm -rf ${MODDIR}/system/${path}/${pkg_label}
+  fi
+done
 
 for line in "${apps[@]}"; do
   IFS=',' read pkg_name pkg_label <<< $line
   [[ -z "$pkg_name" || -z "$pkg_label" ]] && { log_print "Package name or label are empty: ${pkg_name}/${pkg_label}."; continue; }
-  path="${path:=priv-app}"
     for i in /data/app/${pkg_name}-*/base.apk; do
       if [ "$i" != "/data/app/${pkg_name}-*/base.apk" ]; then
         [ -e "${MODDIR}/system/${path}/${pkg_label}" ] && { log_print "Ignoring /data/app/${pkg_name}: already a systemized app."; continue; }
         [ -e "/system/${path}/${pkg_label}" ] && { log_print "Ignoring /data/app/${pkg_name}: already a system app."; continue; }
-
       	mkdir -p "${MODDIR}/system/${path}/${pkg_label}" 2>/dev/null
 	      cp -f "$i" "${MODDIR}/system/${path}/${pkg_label}/${pkg_name}.apk" && log_print "Created ${path}/${pkg_label}/${pkg_name}.apk" || \
           log_print "Copy Failed: $i ${MODDIR}/system/${path}/${pkg_label}/${pkg_name}.apk"
